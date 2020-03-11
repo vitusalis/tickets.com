@@ -1,0 +1,103 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "name": "Victor",
+            "email": "a@a.com",
+            "password": "1234"
+        },
+        {
+            "id": "2",
+            "name": "Takemi Hikari Issobe",
+            "email": "take@take.com",
+            "password": "takemi10"
+        }
+    ],
+    "places": [
+        {
+            "info": {
+                "id": "1",
+                "name": "Circo Voador",
+                "address": "Rua dos Arcos s/ n - Lapa, Rio de Janeiro",
+                "capacity": 2200,
+                "phone": "2125330354",
+                "email": "contato@circovoador.com"
+            }
+        },
+        {
+            "info": {
+                "id": "2",
+                "name": "Teatro Odisséia",
+                "address": "RuaAv. Mem de Sá, 66 - Centro, Rio de Janeiro",
+                "capacity": 700,
+                "phone": "2125332314",
+                "email": "contato@teatroodisseia.com"
+            }
+        }
+    ],
+
+    "events": [
+        {
+            "id": "1",
+            "place_id": "1",
+            "name": "MGMT",
+            "date": "2020-06-06",
+            "description": "MGMT é uma banda americana de Rock Psicodélico formada em 2002 no Brooklyn por Ben Goldwasser e Andrew VanWyngarden.",
+            "image": "https://www.blahzinga.com/wp-content/uploads/2018/11/MGMT-web-header.png",
+            "sponsor": {
+                "name": "Pepsi"
+            },
+            "tickets": 201,
+            "buyers": []
+        },
+        {
+            "id": "2",
+            "place_id": "1",
+            "name": "Duda Beat",
+            "description": "Eduarda Bittencourt Simões, mais conhecida como Duda Beat, é uma cantora e compositora brasileira. Nome recente da música brasileira, é apelidada de rainha da sofrência pop",
+            "image": "https://img.imirante.com.br/2019/09/26/1569506269-615290093-810x471.png",
+            "date": "2020-10-27",
+            "sponsor": {
+                "name": "Coca-Cola"
+            },
+            "tickets": 2200,
+            "buyers": []
+        },
+        {
+            "id": "3",
+            "place_id": "2",
+            "name": "Metronomy",
+            "date": "2020-05-06",
+            "image": "https://ogimg.infoglobo.com.br/in/14605064-602-f9a/FT1086A/652/x2014-769261239-metronomy-main-photo-credit-gregoire-alexandre.jpg_20141118.jpg.pagespeed.ic.m8wA62xVur.jpg",
+            "description": "Metronomy é uma banda britânica de música eletrônica formada em 1999.  O grupo lançou seis álbuns: Pip Paine, Nights Out, The English Riviera, Love Letters, Summer 08 e Metronomy Forever.",
+            "sponsor": {
+                "name": "Uber"
+            },
+            "tickets": 200,
+            "buyers": []
+        },
+        {
+            "id": "4",
+            "place_id": "2",
+            "name": "Letrux",
+            "image": "https://uploads.bemparana.com.br/upload/image/blogpost/tb2/blogpost_395863_img1_letrux_porsillashenrique_peq2_5.jpg",
+            "date": "2020-11-30",
+            "sponsor": "MangoLab",
+            "tickets": 2200,
+            "buyers": []
+        },
+        {
+            "id": "5",
+            "place_id": "2",
+            "name": "Billie Eilish",
+            "image": "https://blog-images.saraiva.com.br/fotos/2019/12/billie-eilish2.jpg",
+            "description": "Billie Eilish Pirate Baird O'Connell, é uma cantora e compositora americana. Ela ganhou seguidores em 2016, quando lançou seu single de estreia \"Ocean Eyes\" no SoundCloud, posteriormente lançado pelas gravadoras Darkroom e Interscope Records.",
+            "date": "2020-05-21",
+            "sponsor": {
+                "name": "Gatorade"
+            },
+            "tickets": 700,
+            "buyers": []
+        }
+    ]
+}

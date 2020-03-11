@@ -1,0 +1,44 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
+
+$body-bg: #29292e;
+$body-color: #fafafa;
+
+body {
+    // background-color: $body-bg;
+    // color: $body-color;
+}
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+}
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+.card-like {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    width: fit-content;
+}
+.horizontal {
+    flex-direction: row;
+    * {
+        margin: auto 10px;
+    }
+}
+.vertical {
+    flex-direction: column;
+    align-items: center;
+}
+.right {
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+.center {
+    justify-content: center;
+}
