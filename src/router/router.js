@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import User from "../views/User.vue";
 import Login from "../components/Login.vue";
 import Tickets from "../views/Tickets.vue";
 import Event from "../views/Event.vue";
-// import UpdateEvent from "../views/UpdateEvent.vue";
+
 import EventForm from "../views/EventForm.vue";
 import PurchaseForm from "../views/PurchaseForm.vue";
 
@@ -23,6 +24,14 @@ const router = new VueRouter({
             component: Login
         },
         {
+            path: "/user",
+            name: "User",
+            component: User,
+            meta: {
+                authentication: true
+            }
+        },
+        {
             path: "/tickets",
             name: "Tickets",
             component: Tickets
@@ -30,7 +39,10 @@ const router = new VueRouter({
         {
             path: "/add",
             name: "create-event",
-            component: EventForm
+            component: EventForm,
+            meta: {
+                authentication: true
+            }
         },
 
         {
@@ -68,8 +80,13 @@ const router = new VueRouter({
     ]
 });
 
+function userIsAuthenticated() {
+    var user = JSON.parse(localStorage.getItem("active_user"));
+    if (user) return true;
+    return false;
+}
 router.beforeEach((to, from, next) => {
-    if (to.meta.authentication && !localStorage.getItem("active_user")) {
+    if (to.meta.authentication && !userIsAuthenticated()) {
         next("/login");
     } else {
         next();

@@ -1,35 +1,39 @@
 <template>
   <div>
     <b-tabs content-class="mt-3">
-      <h2>Info</h2>
-      <b-tab v-for="place in places" :key="place.info.id" :title="place.info.name">
-        <b-table striped hover :items="[place.info]"></b-table>
+      <!-- <h2>Info</h2> -->
+      <b-tab v-for="place in places" :key="place.id" :title="place.name">
+        <b-table striped hover :items="[place]"></b-table>
 
-        <div class="flex right">
-          <router-link tag="span" :to="{ name: 'create-event' }">
-            <b-button variant="info" class="right">Novo Evento</b-button>
-          </router-link>
+        <div class="relative">
+          <h2>Shows</h2>
+          <div class="right">
+            <router-link tag="span" :to="{ name: 'create-event' }">
+              <b-button pill class="dark">Novo Evento</b-button>
+            </router-link>
+          </div>
         </div>
-        <h2 class="center">Shows</h2>
 
         <!-- SHOWS -->
+
         <table class="table">
           <thead>
             <tr>
-              <th v-for="field in shows_fields" :key="field">{{ field.toUpperCase() }}</th>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>DATA</th>
+              <th>INGRESSOS</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="show in getEvents(place.info.id)" :key="show.id">
-              <td v-for="field in shows_fields" :key="field">
-                <!-- link to item page -->
-                <router-link
-                  tag="a"
-                  :to="{name: 'event',params: { id: show.id }}"
-                  v-if="field == 'name'"
-                >{{ show[field] }}</router-link>
-                <span v-else>{{ show[field] }}</span>
+            <tr v-for="show in eventsByPlaceId(place.id)" :key="show.id">
+              <td>{{show.id}}</td>
+              <td>
+                <router-link tag="a" :to="{name: 'event',params: { id: show.id }}">{{ show.name }}</router-link>
               </td>
+              <!-- <td>{{new Date(show.date)}}</td> -->
+              <td>{{show.date}}</td>
+              <td>{{show.tickets - ticketsByEventId(show.id)}} de {{show.tickets}}</td>
             </tr>
           </tbody>
         </table>
@@ -39,36 +43,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-      shows_fields: ["id", "name", "date", "tickets"]
-    };
+    return {};
   },
 
   computed: {
-    places() {
-      return this.$store.getters.places;
-    },
-    events() {
-      return this.$store.getters.events;
-    }
+    ...mapGetters(["places", "events", "eventsByPlaceId", "ticketsByEventId"])
   },
-  methods: {
-    getEvents(placeID) {
-      return this.events.filter(el => {
-        return el.place_id == placeID;
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
-.far-right {
-  // width: 100%;
-  margin: 30px;
-  display: flex;
-  justify-content: flex-end;
+.right {
+  top: 0;
 }
 </style>

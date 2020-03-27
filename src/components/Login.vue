@@ -1,12 +1,19 @@
 <template>
   <div class="flex center">
-    <div id="login" class="card">
+    <!-- IF LOGADO  -->
+    <div class="page-title" v-if="this.$store.getters.isActiveUser">
+      <h1>Voce já está logado</h1>
+    </div>
+    <!-- ELSE -->
+    <div id="login" class="card" v-else>
       <div class="flex horizontal">
         <h3 class>Login</h3>
       </div>
+      <!-- <p>Login: a@a.com Senha:1234</p> -->
+
       <slot></slot>
       {{ message }}
-      <b-form @submit="submitLogin">
+      <b-form @submit.prevent="submitLogin">
         <b-form-group label="Email" label-for="email">
           <b-form-input id="email" type="email" required placeholder="Email" v-model="user.email"></b-form-input>
         </b-form-group>
@@ -21,44 +28,48 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Login</b-button>
+        <b-button pill type="submit" class="dark">Login</b-button>
       </b-form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       user: {
-        name: "",
-        email: "",
-        password: ""
+        email: "a@a.com",
+        password: "1234"
       },
       message: ""
     };
   },
+  computed: {
+    ...mapGetters(["users", "activeUser"])
+  },
   methods: {
-    submitLogin(e) {
-      e.preventDefault();
+    ...mapActions(["fetchUsers", "fetchActiveUser", "addActiveUser"]),
 
-      var user_active;
-      user_active = this.$store.getters.users.filter(el => {
+    submitLogin() {
+      var verifiedUser = undefined;
+      verifiedUser = this.users.filter(el => {
         return this.user.email == el.email && this.user.password == el.password;
       })[0];
-
-      if (user_active) {
-        this.$store.commit("SET_USER", user_active);
-        // go home
+      console.log("verifiedUser:", verifiedUser);
+      if (verifiedUser) {
+        this.addActiveUser(verifiedUser);
         this.$router.push("/");
-        location.reload();
       } else {
         this.message = "user not found";
       }
     }
   },
-  actions: {}
+  created() {
+    this.fetchUsers();
+    this.fetchActiveUser();
+  }
 };
 </script>
 

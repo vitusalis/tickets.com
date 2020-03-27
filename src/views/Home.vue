@@ -1,13 +1,21 @@
 <template>
   <div class="home">
-    <h1 v-if="getUser()">Olá {{ getUser() }}</h1>
-    <!-- <login v-else></login> -->
+    <div class="page-title">
+      <!-- SHOULD NOT USE V-IF -->
+      <h1 v-if="activeUser">Olá {{ activeUser.name }}</h1>
+      <h1 v-else>Bem Vindx</h1>
+    </div>
 
-    <h2>Proximos Eventos</h2>
-    <div class="flex center">
-      <div class="flex" v-if="sortedEvents">
-        <div v-for="event in sortedEvents" :key="event.id">
-          <event-card :event="event" />
+    <div class="section">
+      <div class="section-title">
+        <h2>Estes são os proximos eventos disponíveis</h2>
+      </div>
+      <div class="flex center">
+        <!-- SHOULD NOT USE V-IF -->
+        <div class="flex">
+          <div v-for="event in topEvents(3)" :key="event.id">
+            <event-card :event="event" />
+          </div>
         </div>
       </div>
     </div>
@@ -15,39 +23,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import EventCard from "../components/EventCard.vue";
-// import Login from "../components/Login.vue";
+
 export default {
   name: "Home",
+
   components: {
     "event-card": EventCard
-    // login: Login
+  },
+
+  computed: {
+    ...mapGetters(["topEvents", "activeUser"])
   },
   methods: {
-    getUser() {
-      try {
-        return this.$store.getters.active_user.name;
-      } catch {
-        console.log("NO_USER");
-      }
-    }
+    // ...mapActions(["fetchEvents"]),
   },
-  computed: {
-    sortedEvents() {
-      // GET EVENTS
-      var array = this.$store.getters.events;
-      // SORT EVENTS
-
-      array = array.sort((a, b) => {
-        var keyA = new Date(a.date),
-          keyB = new Date(b.date);
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-      });
-      // console.log(array.slice(0, 3));
-      return array.slice(0, 3);
-    }
+  created() {
+    // this.fetchEvents();
   }
 };
 </script>

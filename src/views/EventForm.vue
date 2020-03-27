@@ -1,31 +1,35 @@
 <template>
   <div>
-    <h4 v-if="event.name">Editando evento #{{event.id}}</h4>
-    <h4 v-else>Novo Evento</h4>
-    <!-- {{event}} -->
-    <div class="flex">
+    <div class="page-title">
+      <!-- SHOULD NOT USE V-IF -->
+      <h1 v-if="event.name">Editando evento #{{ event.id }}</h1>
+      <h1 v-else>Novo Evento</h1>
+    </div>
+    <div class="form">
       <b-form @submit="onSubmit" id="mainForm">
         <b-form-group label="Casa do Evento" label-for="event-place">
           <b-form-select id="event-place" v-model="event.place_id" required>
-            <option
-              v-for="place of place_options"
-              :key="place.info.id"
-              :value="place.info.id"
-            >{{ place.info.name }}</option>
+            <option v-for="place of places" :key="place.id" :value="place.id">{{ place.name }}</option>
           </b-form-select>
         </b-form-group>
 
         <b-form-group label="Nome" label-for="event-name">
           <b-form-input
             id="event-name"
-            placeholder="Ex.: Carreta Furacão"
+            placeholder="Ex.: Fim do mundo"
             v-model="event.name"
             required
           ></b-form-input>
         </b-form-group>
 
         <b-form-group label="Data" label-for="event-date">
-          <b-form-datepicker id="event-date" class="mb-2" v-model="event.date" required></b-form-datepicker>
+          <b-form-datepicker
+            id="event-date"
+            class="mb-2"
+            v-model="event.date"
+            required
+            placeholder="Friday, December 21, 2012"
+          ></b-form-datepicker>
         </b-form-group>
 
         <b-form-group label="Quantidade de Ingressos" label-for="event-tickets">
@@ -35,16 +39,23 @@
         <!-- SPONSOR -->
 
         <b-form-group label="Patrocinador" label-for="sponsor-name">
-          <b-form-input type="text" id="sponsor-name" v-model="event.sponsor.name"></b-form-input>
+          <b-form-input
+            type="text"
+            id="sponsor-name"
+            v-model="event.sponsor.name"
+            required
+            placeholder="Ex.: RedBull"
+          ></b-form-input>
         </b-form-group>
 
-        <b-button variant="success" type="submit">Save</b-button>
+        <b-button pill variant="success" type="submit">Save</b-button>
       </b-form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -56,39 +67,36 @@ export default {
     onSubmit(e) {
       e.preventDefault();
 
-      if (this.events.filter(el => el.id == this.event.id)) {
-        console.log("UPDATED");
+      // UPDATE
+      if (this.event.id) {
+        this.$store.dispatch("updateEvent", this.event);
       } else {
-        // SET ID
-        this.event.id = Math.floor(Math.random() * 100000) + 1;
-        // PUSH EVENT
-        this.events.push(this.event);
+        // ADD
+        this.$store.dispatch("addEvent", this.event);
       }
-      // COMMIT
-      this.$store.commit("UPDATE_LS", "events");
-      this.$router.push("/tickets");
+      // this.$router.push("/tickets");
     }
   },
   computed: {
-    place_options() {
-      return this.$store.getters.places;
-    },
-    events() {
-      return this.$store.getters.events;
-    },
+    ...mapGetters(["places", "events"]),
+    // // place_options() {
+    // //   return this.$store.getters.places;
+    // // },
+    // events() {
+    //   return this.$store.getters.events;
+    // },
     event() {
       if (this.eventTemplate) {
-        // this.message = "Editando evento";
         return this.eventTemplate;
       } else {
-        // this.message = "Novo evento";
         return {
           id: "",
           place_id: "",
           name: "",
           date: "",
           description: "",
-          image: "",
+          image:
+            "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg",
           sponsor: {
             name: ""
           },

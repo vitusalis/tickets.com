@@ -1,40 +1,76 @@
 <template>
   <div id="main">
-    <nav id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/tickets">Tickets</router-link>
-    </nav>
+    <nav id="nav" class="relative">
+      <div class="left">
+        <router-link id="logo" to="/">TICKETS.COM</router-link>
+      </div>
+      <router-link to="/">Home</router-link>
+      <router-link to="/tickets">Ingressos</router-link>
+      <router-link to="/about">Sobre</router-link>
 
-    <!-- <login v-if="!this.$store.getters.active_user" id="login" /> -->
+      <div class="right">
+        <router-link to="/login" v-if="! isActiveUser">Login</router-link>
+        <div v-else>
+          <router-link to="/user">Meu Perfil</router-link>
+          <a href @click="logout">LOGOUT</a>
+        </div>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script>
-// import Login from "./Login.vue";
+import { mapGetters } from "vuex";
 export default {
-  // components: { login: Login }
+  computed: {
+    ...mapGetters(["isActiveUser"])
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("active_user");
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-#main {
+@media screen and (max-width: 900px) {
   #nav {
+    display: flex;
+    flex-direction: column;
   }
-  #login {
-    position: absolute;
-    top: 5%;
-    left: 80%;
+  .right,
+  .left {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    left: 0;
   }
 }
 #nav {
   padding: 30px;
-
+  color: #fafafa;
+  background-color: #333;
   a {
+    text-transform: uppercase;
     font-weight: bold;
-    color: #2c3e50;
+    color: inherit;
+    margin: auto 10px;
 
     &.router-link-exact-active {
       color: #42b983;
+    }
+  }
+  #logo {
+    font-weight: 600;
+    letter-spacing: normal;
+    font-size: 1.5em;
+    &:hover {
+      text-decoration: none;
+    }
+    &.router-link-exact-active {
+      color: inherit;
     }
   }
 }
