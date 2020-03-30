@@ -4,6 +4,12 @@ const state = {
     places: []
 };
 
+var urls = [
+    "http://localhost:3000/places",
+    "https://my-json-server.typicode.com/vitusalis/testDB/places"
+];
+// urls = urls.reverse();
+
 const getters = {
     places: state => state.places,
 
@@ -27,7 +33,7 @@ const getters = {
 
 const actions = {
     fetchPlaces({ commit }) {
-        Axios.get("http://localhost:3000/places").then(response => {
+        Axios.get(urls[0]).then(response => {
             commit("setPlaces", response.data);
         });
     },
@@ -36,24 +42,20 @@ const actions = {
         // add id
         place.id = Math.floor(Math.random() * 10000000) + 1;
         // post
-        Axios.post("http://localhost:3000/places", place).then(() =>
+        Axios.post(urls[0], place).then(() =>
             // update
             commit("newPlace", place)
         );
     },
     updatePlace({ commit }, place) {
-        Axios.put(`http://localhost:3000/places/${place.id}`, place).then(
-            () => {
-                commit("updatePlace", place);
-            }
-        );
+        Axios.put(urls[0] + place.id, place).then(() => {
+            commit("updatePlace", place);
+        });
     },
     deletePlace({ commit }, place) {
-        Axios.delete(`http://localhost:3000/places/${place.id}`, place).then(
-            () => {
-                commit("removePlace", place);
-            }
-        );
+        Axios.delete(urls[0] + place.id, place).then(() => {
+            commit("removePlace", place);
+        });
     }
 };
 const mutations = {

@@ -3,6 +3,12 @@ import Axios from "axios";
 const state = {
     events: []
 };
+var urls = [
+    "http://localhost:3000/events",
+    "https://my-json-server.typicode.com/vitusalis/testDB/events"
+];
+
+// urls = urls.reverse();
 
 const getters = {
     events: state => state.events,
@@ -31,16 +37,22 @@ const getters = {
 
 const actions = {
     fetchEvents({ commit }) {
-        Axios.get("http://localhost:3000/events").then(response => {
-            commit("setEvents", response.data);
-        });
+        Axios.get(urls[0])
+            .then(response => {
+                commit("setEvents", response.data);
+            })
+            .catch(
+                Axios.get(urls[0]).then(response => {
+                    commit("setEvents", response.data);
+                })
+            );
     },
 
-    addEvent({ commit }, event) {
-        // add id
-        event.id = Math.floor(Math.random() * 10000000) + 1;
+    addEvent({ commit, getters }, event) {
+        // event.id = Math.floor(Math.random() * 10000000) + 1;
+        event.id = getters.events[getters.events.length - 1].id + 1;
         // post
-        Axios.post("http://localhost:3000/events", event).then(() =>
+        Axios.post(urls[0], event).then(() =>
             // update
             commit("newEvent", event)
         );
@@ -48,19 +60,15 @@ const actions = {
     updateEvent({ commit }, event) {
         var index = state.events.indexOf(event);
         setTimeout(() => {
-            Axios.put(`http://localhost:3000/events/${event.id}`, index).then(
-                () => {
-                    commit("updateEvent", event);
-                }
-            );
+            Axios.put(urls[0] + event.id, index).then(() => {
+                commit("updateEvent", event);
+            });
         }, 7000);
     },
     deleteEvent({ commit }, event) {
-        Axios.delete(`http://localhost:3000/events/${event.id}`, event).then(
-            () => {
-                commit("removeEvent", event);
-            }
-        );
+        Axios.delete(urls[0] + event.id, event).then(() => {
+            commit("removeEvent", event);
+        });
     }
 };
 const mutations = {

@@ -13,7 +13,7 @@ const getters = {
         state.purchases.filter(p => p.eventID == id),
 
     purchasesByUserId: state => id =>
-        state.purchases.filter(p => p.userID == id),
+        state.purchases.filter(p => p.clientID == id),
 
     ticketsByEventId: state => id =>
         state.purchases
@@ -21,7 +21,7 @@ const getters = {
             .reduce((acc, cur) => acc + parseInt(cur.ticketAmmount), 0),
     ticketsByUserId: state => id =>
         state.purchases
-            .filter(p => p.userID == id)
+            .filter(p => p.clientID == id)
             .reduce((acc, cur) => acc + parseInt(cur.ticketAmmount), 0)
 };
 

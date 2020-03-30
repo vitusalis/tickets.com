@@ -38,7 +38,7 @@ h6 {
 }
 .section-title {
     margin: $default-margin;
-    border-bottom: solid 1.5px rgba($color: #000000, $alpha: 0.5);
+    // border-bottom: solid 1.5px rgba($color: #000000, $alpha: 0.5);
     * {
         margin: 0;
     }
@@ -62,7 +62,6 @@ h6 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 10px;
 }
 
 .horizontal {
@@ -81,18 +80,7 @@ h6 {
 .relative {
     position: relative;
 }
-.left {
-    position: absolute;
-    top: 24px;
-    left: 30px;
-    float: left;
-}
-.right {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    float: right;
-}
+
 .form {
     margin: auto;
     text-align: left;

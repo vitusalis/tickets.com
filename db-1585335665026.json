@@ -1,26 +1,15 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "John Smith",
       "email": "a@a.com",
-      "password": "1234",
-      "adm": []
-    },
-    {
-      "name": "victor",
-      "email": "victor@apple.com",
-      "password": "1",
-      "adm": [
-        1,
-        2
-      ],
-      "id": 8534013
+      "password": "1234"
     }
   ],
   "places": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Circo Voador",
       "address": "Rua dos Arcos s/ n - Lapa, Rio de Janeiro",
       "capacity": 2200,
@@ -28,7 +17,7 @@
       "email": "contato@circovoador.com"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Teatro Odisséia",
       "address": "RuaAv. Mem de Sá, 66 - Centro, Rio de Janeiro",
       "capacity": 700,
@@ -38,8 +27,8 @@
   ],
   "events": [
     {
-      "id": 1,
-      "place_id": 1,
+      "id": "1",
+      "place_id": "1",
       "name": "MGMT",
       "date": "2020-06-06",
       "description": "MGMT é uma banda americana de Rock Psicodélico formada em 2002 no Brooklyn por Ben Goldwasser e Andrew VanWyngarden.",
@@ -50,11 +39,11 @@
       "tickets": 200
     },
     {
-      "id": 2,
-      "place_id": 1,
+      "id": "2",
+      "place_id": "1",
       "name": "Duda Beat",
       "description": "Eduarda Bittencourt Simões, mais conhecida como Duda Beat, é uma cantora e compositora brasileira. Nome recente da música brasileira, é apelidada de rainha da sofrência pop",
-      "image": "https://poltronavip.com/wp-content/uploads/2019/12/DUDA-BEAT-CIRCO-VOADOR-2.jpg",
+      "image": "https://i1.wp.com/www.blahzinga.com/wp-content/uploads/2018/11/MGMT-web-header.png?fit=1440%2C647&ssl=1",
       "date": "2020-10-27",
       "sponsor": {
         "name": "Heineken"
@@ -62,8 +51,8 @@
       "tickets": 2200
     },
     {
-      "id": 3,
-      "place_id": 2,
+      "id": "3",
+      "place_id": "2",
       "name": "Metronomy",
       "date": "2020-05-06",
       "image": "https://ogimg.infoglobo.com.br/in/23948908-3a8-41d/FT1500A/690/xMetronomy.jpg.pagespeed.ic.K3n0OcptzE.jpg",
@@ -74,8 +63,8 @@
       "tickets": 200
     },
     {
-      "id": 4,
-      "place_id": 2,
+      "id": "4",
+      "place_id": "2",
       "name": "Letrux",
       "image": "https://uploads.bemparana.com.br/upload/image/blogpost/tb2/blogpost_395863_img1_letrux_porsillashenrique_peq2_5.jpg",
       "date": "2020-11-30",
@@ -85,8 +74,8 @@
       "tickets": 2200
     },
     {
-      "id": 5,
-      "place_id": 2,
+      "id": "5",
+      "place_id": "2",
       "name": "Billie Eilish",
       "image": "https://blog-images.saraiva.com.br/fotos/2019/12/billie-eilish2.jpg",
       "description": "Billie Eilish Pirate Baird O'Connell, é uma cantora e compositora americana. Ela ganhou seguidores em 2016, quando lançou seu single de estreia \"Ocean Eyes\" no SoundCloud, posteriormente lançado pelas gravadoras Darkroom e Interscope Records.",
@@ -97,5 +86,14 @@
       "tickets": 700
     }
   ],
-  "purchases": []
+  "purchases": [
+    {
+      "id": 3481828,
+      "clientID": "1",
+      "clientName": "Victor",
+      "clientEmail": "a@a.com",
+      "eventID": "5",
+      "ticketAmmount": "1"
+    }
+  ]
 }
